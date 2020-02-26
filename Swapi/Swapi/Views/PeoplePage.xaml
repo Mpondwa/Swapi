@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="People" Shell.TabBarIsVisible="False"
+             BackgroundImageSource="bg.png"
+             x:Class="Swapi.Views.PeoplePage">
+    <ContentPage.Content>
+        <Grid Padding="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}" VerticalOptions="Center" Color="WhiteSmoke" HeightRequest="45" WidthRequest="45"/>
+            <ListView ItemsSource="{Binding People}" ItemSelected="ListView_ItemSelected" SeparatorVisibility="Default" Grid.Row="1" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Margin="0,0,0,20" Padding="5" BackgroundColor="{StaticResource PrimaryDimColour}">
+                                <StackLayout>
+                                    <Label Text="{Binding Name}" FontSize="22" TextColor="WhiteSmoke"/>
+                                    <StackLayout Orientation="Horizontal">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Height:" Style="{StaticResource SmallFontStyle}"/>
+                                            <Label Text="{Binding Height}" Style="{StaticResource SmallBoldFontStyle}"/>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal" Grid.Column="1">
+                                            <Label Text="Mass: " Style="{StaticResource SmallFontStyle}"/>
+                                            <Label Text="{Binding Mass}" Style="{StaticResource SmallBoldFontStyle}"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="Load more" Command="{Binding OnLoadMore}" BackgroundColor="{StaticResource PrimaryColour}" TextColor="White" IsVisible="{Binding HasNextPage}" Grid.Row="2"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
